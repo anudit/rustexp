@@ -5,4 +5,5 @@ authors = ["anudit"]
 edition = "2018"
 
 [dependencies]
-nickel = "*"
+rocket = "*"
+rocket_contrib = "*"

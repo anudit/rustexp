@@ -1,15 +1,14 @@
-#[macro_use] extern crate nickel;
+extern crate rocket;
+extern crate rocket_contrib;
 
-use nickel::Nickel;
+#[cfg(test)] mod tests;
+
+use rocket_contrib::serve::StaticFiles;
+
+fn rocket() -> rocket::Rocket {
+    rocket::ignite().mount("/", StaticFiles::from("static"))
+}
 
 fn main() {
-    let mut server = Nickel::new();
-
-    server.utilize(router! {
-        get "**" => |_req, _res| {
-            "Hello world!"
-        }
-    });
-
-    server.listen("127.0.0.1:80").unwrap();
+    rocket().launch();
 }
