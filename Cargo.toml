@@ -5,5 +5,5 @@ authors = ["anudit"]
 edition = "2018"
 
 [dependencies]
-rocket = "*"
-rocket_contrib = "*"
+linecount = "*"
+elapsed = "*"
