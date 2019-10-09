@@ -13,7 +13,12 @@ extern crate elapsed;
 use elapsed::measure_time;
 
 fn main() {
+    // let path = Path::new("lab.csv");
     let path = Path::new("lab.csv");
+
+    /*
+    * @dev Count the number of lines.
+    */
 
     // let mut no_lines = 0;
     // let (elapsed, sum) = measure_time(|| {
@@ -23,23 +28,36 @@ fn main() {
 	// });
     // println!("Time Taken = {}", elapsed);
 
-    // let (elapsed2, sum2) = measure_time(|| {
-    //     let line = get_line_at(&path, no_lines-1);
-    //     println!("{}", line.unwrap());
-	// });
+    /*
+    * @name Question 1
+    * @dev Get nth line
+    */
 
+    // let (elapsed2, sum2) = measure_time(|| {
+    //     for i in 1..=20 {
+    //         print!("({}) : ", i);
+    //         let line = get_line_at(&path, i);
+    //         println!("{}", line.unwrap());
+    //     };
+    //     for i in no_lines-20..=no_lines-1 {
+    //         print!("({}) : ", i);
+    //         let line = get_line_at(&path, i);
+    //         println!("{}", line.unwrap());
+    //     };
+	// });
     // println!("Time Taken = {}", elapsed2);
 
     // let (elapsed3, sum3) = measure_time(|| {
-
     //     let st = "Hello";
     //     add_line(&st.to_string());
 	// });
 
-    let (elapsed4, sum4) = measure_time(|| {
-        dup(&path);
-	});
-    println!("Time Taken = {}", elapsed4);
+    // println!("Time Taken = {}", elapsed3);
+
+    // let (elapsed4, sum4) = measure_time(|| {
+    //     rep(&path);
+	// });
+    // println!("Time Taken = {}", elapsed4);
 
 }
 
@@ -59,18 +77,30 @@ fn dup(path: &Path){
     let file = File::open(&path).unwrap();
     for line in BufReader::new(file).lines() {
         let st = line.unwrap();
-        add_line(&line);
+        add_line(&st.to_string());
     }
+}
+
+fn rep(path: &Path){
+    let file = File::open(&path).unwrap();
+    let mut cnt = 0;
+    for line in BufReader::new(file).lines() {
+        let st = line.unwrap();
+        let result = str::replace(&st, "line", "play");
+        cnt+=1;
+        add_line(&result.to_string());
+    }
+    println!("{} Occurrences Replaced", cnt);
 }
 
 fn add_line(line : &String){
     let mut file = OpenOptions::new()
         .write(true)
         .append(true)
-        .open("foo.txt")
+        .open("foo2.txt")
         .unwrap();
 
-    if let Err(e) = writeln!(file,line) {
+    if let Err(e) = writeln!(file,"{}", line.to_string()) {
         eprintln!("Couldn't write to file: {}", e);
     }
 }
